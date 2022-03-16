@@ -1,0 +1,33 @@
+plugins {
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '5.2.0'
+}
+
+mainClassName = 'net.envirocraft.Bot'
+
+group 'net.envirocraft'
+version '1.0'
+
+sourceCompatibility = targetCompatibility = 16
+
+repositories {
+    mavenCentral()
+    maven { // on kotlin dsl use `maven("https://m2.dv8tion.net/releases")` instead
+        url "https://m2.dv8tion.net/releases"
+    }
+}
+
+dependencies {
+    implementation('net.dv8tion:JDA:5.0.0-alpha.9')
+    implementation('org.slf4j:slf4j-simple:2.0.0-alpha6')
+    implementation('com.google.code.gson:gson:2.9.0')
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'net.envirocraft.Bot'
+    }
+}
+
+
+compileJava.options.encoding = 'UTF-8'
