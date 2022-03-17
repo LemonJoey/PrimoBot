@@ -1,4 +1,4 @@
-package net.envirocraft;
+package net.envirocraft.commands;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -11,6 +11,9 @@ import javax.net.ssl.HttpsURLConnection;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.time.Instant;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -42,18 +45,20 @@ public class Command extends ListenerAdapter {
         event.deferReply().queue();
         String name = Objects.requireNonNull(event.getOption("name")).getAsString();
         try {
-            URL url = new URL(apiUrl.replaceAll("!name", name));
+            URL url = new URL(apiUrl.replaceAll("!name", URLEncoder.encode(name, StandardCharsets.UTF_8)));
             HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
             if (conn.getResponseCode() != 200) {
+                System.out.println(apiUrl.replaceAll("!name", URLEncoder.encode(name, StandardCharsets.UTF_8)));
+                System.out.println(conn.getResponseMessage());
                 EmbedBuilder embedBuilder = new EmbedBuilder();
                 embedBuilder.setColor(Color.RED);
                 embedBuilder.setDescription("**Failed to get the player** `%s`**!**".formatted(name));
                 event.getHook().sendMessageEmbeds(embedBuilder.build()).queue();
                 return;
             }
-            JsonObject response = new Gson().fromJson(new String(url.openStream().readAllBytes()), JsonObject.class);
+            JsonObject response = new Gson().fromJson(new String(url.openStream().readAllBytes(), StandardCharsets.UTF_8), JsonObject.class);
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setAuthor(
                     response.get("name").getAsString(),
@@ -78,6 +83,8 @@ public class Command extends ListenerAdapter {
             embedBuilder.setDescription(about);
 
             embedBuilder.setColor(CLASS_COLORS.get(response.get("class").getAsString()));
+
+            embedBuilder.setTimestamp(Instant.parse(response.get("last_crawled_at").getAsString()));
 
             event.getHook().sendMessageEmbeds(embedBuilder.build()).queue();
         } catch (IOException e) {
