@@ -5,6 +5,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.envirocraft.utils.API;
+import net.envirocraft.utils.StringUtil;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
@@ -55,13 +56,10 @@ public class Command extends ListenerAdapter {
                 )
         );
 
-        String role = player.get("active_spec_role").getAsString().toLowerCase(Locale.ROOT);
-        role = role.substring(0, 1).toUpperCase() + role.substring(1);
-
         String about =
                 "**Class:** %s\n".formatted(player.get("class").getAsString()) +
                 "**Spec:** %s\n".formatted(player.get("active_spec_name").getAsString()) +
-                "**Role:** %s\n".formatted(role) +
+                "**Role:** %s\n".formatted(StringUtil.capitalize(player.get("active_spec_role").getAsString())) +
                 "**M+ Score:** %s\n".formatted(Math.round(Float.parseFloat(player.get("mythic_plus_scores_by_season").getAsJsonArray()
                         .get(0).getAsJsonObject().get("scores").getAsJsonObject().get("all").getAsString()))) +
                 "**Tichondrius Rank:** %s".formatted(player.get("mythic_plus_ranks").getAsJsonObject()
