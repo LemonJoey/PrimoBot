@@ -41,6 +41,7 @@ public class API {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        temp.sort(String::compareToIgnoreCase);
         members = temp;
     }
 
