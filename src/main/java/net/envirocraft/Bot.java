@@ -66,7 +66,8 @@ public class Bot {
 
         // Start caching
         ScheduledThreadPoolExecutor exec = new ScheduledThreadPoolExecutor(1);
-        exec.scheduleAtFixedRate(API::updateGuildMembers, 0, 2, TimeUnit.MINUTES);
+        exec.schedule(API::updateGuildMembers, 0, TimeUnit.SECONDS);
+        exec.schedule(DynamicMessage::update, 10, TimeUnit.SECONDS);
 
         System.out.println("Finished Loading! (" + ((float)(System.currentTimeMillis() - startTime)) / 1000 + " sec)");
     }
