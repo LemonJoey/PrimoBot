@@ -11,9 +11,7 @@ import net.envirocraft.utils.WoWClass;
 import javax.annotation.Nonnull;
 import java.awt.*;
 import java.time.Instant;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Objects;
 
 public class Command extends ListenerAdapter {
