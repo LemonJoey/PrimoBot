@@ -28,7 +28,7 @@ public class API {
                 System.out.println(conn.getResponseMessage());
                 return;
             }
-            JsonObject response = new Gson().fromJson(new String(url.openStream().readAllBytes(), StandardCharsets.UTF_16), JsonObject.class);
+            JsonObject response = new Gson().fromJson(new String(url.openStream().readAllBytes(), StandardCharsets.UTF_8), JsonObject.class);
             for (JsonElement jsonElement : response.get("members").getAsJsonArray()) {
                 temp.add(jsonElement.getAsJsonObject().get("character").getAsJsonObject().get("name").getAsString());
             }
