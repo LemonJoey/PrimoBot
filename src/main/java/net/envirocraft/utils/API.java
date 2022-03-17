@@ -3,8 +3,8 @@ package net.envirocraft.utils;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.net.URL;
@@ -48,7 +48,7 @@ public class API {
      * Get the {@link List} of cached guild members
      * @return A {@link List} of the guild members names
      */
-    public static @Nonnull List<String> getGuildMembers() {
+    public static @NotNull List<String> getGuildMembers() {
         return members;
     }
 
@@ -58,7 +58,7 @@ public class API {
      * @return     A {@link JsonObject} containing the response from raider.io
      *         <br>Here is an <a href="https://raider.io/api/v1/characters/profile?region=us&realm=Tichondrius&name=lemonjoey&fields=mythic_plus_scores_by_season%3Acurrent%2Cmythic_plus_ranks">example response</a>.
      */
-    public static @Nonnull JsonObject getPlayer(@Nonnull String name) {
+    public static @NotNull JsonObject getPlayer(@NotNull String name) {
         JsonObject player = new JsonObject();
         try {
             URL url = new URL(userAPI.replaceAll("!name", URLEncoder.encode(name, StandardCharsets.UTF_8)));
