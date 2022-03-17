@@ -22,7 +22,6 @@ public class CommandAutoComplete extends ListenerAdapter {
                         member,
                         member
                 ));
-                System.out.println(member);
             }
         }
         event.replyChoices(choices).queue();
