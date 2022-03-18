@@ -49,8 +49,6 @@ public class DynamicMessage {
             int i = 0;
             for (String name : API.getGuildMembers()) {
                 i++;
-                if (i < 20) continue;
-                if (i > 30) continue;
                 JsonObject player = API.getPlayer(name);
                 System.out.printf("Checked %s/%s%n", i, API.getGuildMembers().size());
                 if (!player.equals(new JsonObject()))
