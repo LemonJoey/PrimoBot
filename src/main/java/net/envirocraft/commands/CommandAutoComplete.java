@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInterac
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.Command;
 import net.envirocraft.utils.API;
+import net.envirocraft.utils.StringUtil;
 
 import javax.annotation.Nonnull;
 import java.util.LinkedList;
@@ -17,7 +18,7 @@ public class CommandAutoComplete extends ListenerAdapter {
         List<Command.Choice> choices = new LinkedList<>();
         for (String member : API.getGuildMembers()) {
             if (choices.size() >= 25) break;
-            if (member.toLowerCase().startsWith(event.getFocusedOption().getValue().toLowerCase())) {
+            if (StringUtil.stripAccents(member).toLowerCase().startsWith(StringUtil.stripAccents(event.getFocusedOption().getValue()).toLowerCase())) {
                 choices.add(new Command.Choice(
                         member,
                         member
