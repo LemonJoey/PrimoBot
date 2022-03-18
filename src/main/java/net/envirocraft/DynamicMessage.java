@@ -37,8 +37,11 @@ public class DynamicMessage {
 
         List<JsonObject> players = new LinkedList<>();
         try {
+            int i = 0;
             for (String name : API.getGuildMembers()) {
+                i++;
                 JsonObject player = API.getPlayer(name);
+                System.out.printf("Checked %s/%s%n", i, API.getGuildMembers().size());
                 if (!player.equals(new JsonObject()))
                     players.add(player);
                 TimeUnit.SECONDS.sleep(5);
