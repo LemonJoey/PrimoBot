@@ -53,7 +53,7 @@ public class DynamicMessage {
                 System.out.printf("Checked %s/%s%n", i, API.getGuildMembers().size());
                 if (!player.equals(new JsonObject()))
                     players.add(player);
-                TimeUnit.SECONDS.sleep(5);
+                TimeUnit.MILLISECONDS.sleep(250);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -121,9 +121,7 @@ public class DynamicMessage {
             for (String name : data.get("players").getAsJsonObject().keySet()) {
                 context.put(name, (int) data.get("players").getAsJsonObject().get(name).getAsFloat());
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        } catch (IOException ignored) {}
         return context;
     }
 }
