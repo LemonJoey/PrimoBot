@@ -23,6 +23,7 @@ public class Command extends ListenerAdapter {
         String name = Objects.requireNonNull(event.getOption("name")).getAsString();
         JsonObject player = API.getPlayer(name);
         if (Objects.equals(player, new JsonObject())) {
+            // TODO: 3/17/2022 Check if they are in guild and return better warning
             EmbedBuilder embedBuilder = new EmbedBuilder();
             embedBuilder.setColor(Color.RED);
             embedBuilder.setDescription("**Failed to get the player** `%s`**!**".formatted(name));
