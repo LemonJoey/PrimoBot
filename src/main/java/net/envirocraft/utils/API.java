@@ -44,7 +44,6 @@ public class API {
     public static void updateGuildMembers() {
         List<String> temp = new LinkedList<>();
         try {
-            System.out.println(getBlizzardAPIToken());
             URL url = new URL(rosterAPI.replaceAll("!token", getBlizzardAPIToken()));
             HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
