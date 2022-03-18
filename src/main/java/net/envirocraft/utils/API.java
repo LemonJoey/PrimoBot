@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -20,17 +21,36 @@ public class API {
 
     static List<String> members = new LinkedList<>();
 
+    public static String getBlizzardAPIToken() {
+        String encodedCredentials = Base64.getEncoder().encodeToString(String.format("%s:%s", Config.get("blizzard_id").getAsString(), Config.get("blizzard_secret").getAsString()).getBytes(StandardCharsets.UTF_8));
+        try {
+            URL url = new URL("https://us.battle.net/oauth/token");
+            HttpsURLConnection con = (HttpsURLConnection) url.openConnection();
+            con.setRequestMethod("POST");
+            con.setRequestProperty("Authorization", String.format("Basic %s", encodedCredentials));
+            con.setDoOutput(true);
+            con.getOutputStream().write("grant_type=client_credentials".getBytes(StandardCharsets.UTF_8));
+
+            return new Gson().fromJson(new String(con.getInputStream().readAllBytes()), JsonObject.class).get("access_token").getAsString();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     /**
      * Updates the local copy of the list of guild members
      */
     public static void updateGuildMembers() {
         List<String> temp = new LinkedList<>();
         try {
-            URL url = new URL(rosterAPI.replaceAll("!token", Config.get("blizzard_token").getAsString()));
+            System.out.println(getBlizzardAPIToken());
+            URL url = new URL(rosterAPI.replaceAll("!token", getBlizzardAPIToken()));
             HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
             conn.connect();
             if (conn.getResponseCode() != 200) {
+                System.out.println("it was me");
                 System.out.println(conn.getResponseMessage());
                 return;
             }

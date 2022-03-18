@@ -1,5 +1,7 @@
 {
   "TOKEN": "",
   "GUILD": "",
-  "BLIZZARD_TOKEN": ""
+  "OVERVIEW_CHANNEL": "",
+  "BLIZZARD_ID": "",
+  "BLIZZARD_SECRET": ""
 }
