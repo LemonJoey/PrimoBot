@@ -58,7 +58,7 @@ public class DynamicMessage {
 
         int count = 0;
         for (JsonObject player : players) {
-            if (count++ > 25) break;
+            if (count++ >= 30) break;
             embedBuilder.appendDescription("**%s:** %s %s\n".formatted(
                     count,
                     player.get("name").getAsString(),
@@ -68,7 +68,7 @@ public class DynamicMessage {
                             .get("all").getAsFloat()
             ));
         }
-        embedBuilder.setFooter("\n Took: "+ ((float)(System.currentTimeMillis() - startTime)) / 1000 / 60 + " min\"");
+        embedBuilder.setFooter("\n Took: "+ ((float)(System.currentTimeMillis() - startTime)) / 1000 / 60 + " min");
 
         channel.sendMessageEmbeds(embedBuilder.build()).queue();
     }
