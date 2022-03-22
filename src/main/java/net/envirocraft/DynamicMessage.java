@@ -84,7 +84,7 @@ public class DynamicMessage {
             ));
         }
         embedBuilder.appendDescription("\nCompared against: <t:%s:f>".formatted(lastChecked));
-        embedBuilder.setFooter("Took: "+ (int) ((float)(System.currentTimeMillis() - startTime) / 1000) / 60 + " min");
+        embedBuilder.setFooter("Took: "+ Math.round((((float)(System.currentTimeMillis() - startTime) / 1000) / 60) * 100) / 100 + " min");
 
         channel.sendMessageEmbeds(embedBuilder.build()).queue();
 
