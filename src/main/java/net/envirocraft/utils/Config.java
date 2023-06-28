@@ -1,4 +1,4 @@
-package net.envirocraft.utils;
+package net.envirocraft.utils; 
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -19,15 +19,19 @@ public class Config {
 
     public static void load() {
         System.out.println("Loading config...");
+        new File (File.separator).listFiles();
+        for (File filename : new File(File.separator + "data").listFiles()) {
+        System.out.println(filename);
+        }
         try {
-            File configFile = new File(Bot.localPath + "config.json");
-            if (configFile.createNewFile()) {
+            File configFile = new File(File.separator + "data" + File.separator + "config.json");
+            /*if (configFile.createNewFile()) {
                 String defaultConfig = new String(Objects.requireNonNull(Bot.class.getClassLoader().getResourceAsStream("config.json")).readAllBytes());
                 new FileOutputStream(configFile).write(defaultConfig.getBytes(StandardCharsets.UTF_8));
                 CONFIG = new Gson().fromJson(defaultConfig, JsonObject.class);
-            } else {
+            } else {*/
                 CONFIG = new Gson().fromJson(new String(new FileInputStream(configFile).readAllBytes()), JsonObject.class);
-            }
+            //}
         } catch (IOException e) {
             System.out.println("Failed to save default config!");
             e.printStackTrace();

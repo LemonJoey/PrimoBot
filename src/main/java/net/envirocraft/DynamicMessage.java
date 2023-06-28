@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.TextChannel;
 import net.envirocraft.utils.API;
 import net.envirocraft.utils.Config;
 import net.envirocraft.utils.MPlusComparator;
@@ -30,7 +29,7 @@ public class DynamicMessage {
         long startTime = System.currentTimeMillis();
 
         // Get the channel and message
-        TextChannel channel = Bot.jda.getTextChannelById(Config.get("overview_channel").getAsString());
+        net.dv8tion.jda.api.entities.channel.concrete.TextChannel channel = Bot.jda.getTextChannelById(Config.get("overview_channel").getAsString());
         if (channel == null) {
             System.out.println("[Warning] Could not get overview channel!");
             return;

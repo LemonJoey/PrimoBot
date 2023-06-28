@@ -6,14 +6,15 @@ import net.dv8tion.jda.api.interactions.commands.Command;
 import net.envirocraft.utils.API;
 import net.envirocraft.utils.StringUtil;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NonNls;
+
 import java.util.LinkedList;
 import java.util.List;
 
 public class CommandAutoComplete extends ListenerAdapter {
 
     @Override
-    public void onCommandAutoCompleteInteraction(@Nonnull CommandAutoCompleteInteractionEvent event) {
+    public void onCommandAutoCompleteInteraction(@NonNls CommandAutoCompleteInteractionEvent event) {
         if (!event.getName().equals("raiderio")) return;
         List<Command.Choice> choices = new LinkedList<>();
         for (String member : API.getGuildMembers()) {

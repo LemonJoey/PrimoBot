@@ -8,7 +8,8 @@ import net.envirocraft.utils.API;
 import net.envirocraft.utils.StringUtil;
 import net.envirocraft.utils.WoWClass;
 
-import javax.annotation.Nonnull;
+import org.jetbrains.annotations.NonNls;
+
 import java.awt.*;
 import java.time.Instant;
 import java.util.Locale;
@@ -17,7 +18,7 @@ import java.util.Objects;
 public class Command extends ListenerAdapter {
 
     @Override
-    public void onSlashCommandInteraction(@Nonnull SlashCommandInteractionEvent event) {
+    public void onSlashCommandInteraction(@NonNls SlashCommandInteractionEvent event) {
         if (!event.getName().equals("raiderio")) return;
         event.deferReply().queue();
         String name = Objects.requireNonNull(event.getOption("name")).getAsString();
